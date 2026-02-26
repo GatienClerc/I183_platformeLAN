@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
- * Program name :           script_SQL_platformeLAN.sql
+ * Program name :           create_db_lan_plaform.sql
  * Description :            Database creation script
  * Author :                 Gatien clerc
  * Creation date :          26.02.2026
