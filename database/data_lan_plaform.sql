@@ -1,4 +1,4 @@
-USE plaformeLAN;
+USE lan_plaform;
 
 -- ROLES
 INSERT INTO Roles (name)

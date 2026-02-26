@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
  * Program name :           script_SQL_platformeLAN.sql
- * Description :            Application principale
+ * Description :            Database creation script
  * Author :                 Gatien clerc
  * Creation date :          26.02.2026
  * Modified by :            -
@@ -13,20 +13,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema plaformeLAN
+-- Schema lan_plaform
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `plaformeLAN` ;
+DROP SCHEMA IF EXISTS `lan_plaform` ;
 
 -- -----------------------------------------------------
--- Schema plaformeLAN
+-- Schema lan_plaform
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `plaformeLAN` DEFAULT CHARACTER SET utf8 ;
-USE `plaformeLAN` ;
+CREATE SCHEMA IF NOT EXISTS `lan_plaform` DEFAULT CHARACTER SET utf8 ;
+USE `lan_plaform` ;
 
 -- -----------------------------------------------------
--- Table `plaformeLAN`.`Roles`
+-- Table `lan_plaform`.`Roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `plaformeLAN`.`Roles` (
+CREATE TABLE IF NOT EXISTS `lan_plaform`.`Roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`),
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `plaformeLAN`.`Users`
+-- Table `lan_plaform`.`Users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `plaformeLAN`.`Users` (
+CREATE TABLE IF NOT EXISTS `lan_plaform`.`Users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `lastname` VARCHAR(25) NOT NULL,
   `firstname` VARCHAR(25) NOT NULL,
@@ -59,9 +59,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `plaformeLAN`.`LANs`
+-- Table `lan_plaform`.`LANs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `plaformeLAN`.`LANs` (
+CREATE TABLE IF NOT EXISTS `lan_plaform`.`LANs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL,
   `date` DATE NOT NULL,
@@ -73,9 +73,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `plaformeLAN`.`Users_take_part_in_LANs`
+-- Table `lan_plaform`.`Users_take_part_in_LANs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `plaformeLAN`.`Users_take_part_in_LANs` (
+CREATE TABLE IF NOT EXISTS `lan_plaform`.`Users_take_part_in_LANs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `LAN_id` INT NOT NULL,
