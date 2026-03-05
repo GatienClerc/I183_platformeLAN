@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LAN Signup</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./assets/CSS/app.css">
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-lg border p-8">
+    <legend class="fieldset-legend text-2xl">Signup</legend>
+
+    <!-- Firstname + Lastname -->
+    <div class="grid grid-cols-2 gap-4 mt-2">
+        <div>
+            <label class="label text-lg">Firstname</label>
+            <input type="text" class="input w-full text-lg" placeholder="First name">
+        </div>
+
+        <div>
+            <label class="label text-lg">Lastname</label>
+            <input type="text" class="input w-full text-lg" placeholder="Last name">
+        </div>
+    </div>
+
+    <label class="label text-lg">Username</label>
+    <input type="text" class="input w-full text-lg" placeholder="Username">
+
+    <label class="label text-lg">Birthdate</label>
+    <input type="date" class="input w-full text-lg">
+
+    <label class="label text-lg mt-2">Email</label>
+    <input type="email" class="input w-full text-lg" placeholder="example@email.com">
+
+    <label class="label text-lg mt-2">Password</label>
+    <input type="password" class="input w-full text-lg" placeholder="Enter password">
+
+    <label class="label text-lg">Confirm password</label>
+    <input type="password" class="input w-full text-lg" placeholder="Confirm password">
+
+    <button class="btn btn-neutral mt-4 text-lg w-full">Register</button>
+</fieldset>
+
+</body>
+</html>
