@@ -14,16 +14,19 @@ const App = Vue.createApp({
     },
     methods: {
         async login() {
-            const { password, confirmPassword } = this;
+            if (!this.firstName || !this.lastName || !this.username || !this.birthdate || !this.email || !this.password || !this.confirmPassword) {
+                alert("Missing fields");
+                return;
+            }
 
-            if (password !== confirmPassword) {
+            if (this.password !== this.confirmPassword) {
                 alert("Passwords don't match");
                 return;
             }
 
             // Use bcryptjs global object
             const saltRounds = 10;
-            const hashedPassword = await dcodeIO.bcrypt.hash(password, saltRounds);
+            const hashedPassword = await dcodeIO.bcrypt.hash(this.password, saltRounds);
 
             console.log("Passwords match");
             console.log("Hashed password:", hashedPassword);
@@ -37,7 +40,7 @@ const App = Vue.createApp({
                 password: hashedPassword
             });
 
-            alert("Signup successful! Check console for hashed password.");
+            window.location.href = "http://localhost:3000/login";
         }
     }
 });
