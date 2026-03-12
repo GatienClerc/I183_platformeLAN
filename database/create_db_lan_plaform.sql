@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `lan_plaform`.`Users_take_part_in_LANs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `LAN_id` INT NOT NULL,
+  `price` float(5,2) not null,
   PRIMARY KEY (`id`),
   INDEX `fk_Users_take_part_in_LANs_Users1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_Users_take_part_in_LANs_LANs1_idx` (`LAN_id` ASC) VISIBLE,
