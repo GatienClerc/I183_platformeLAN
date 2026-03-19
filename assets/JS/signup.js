@@ -27,18 +27,30 @@ const App = Vue.createApp({
             console.log("Passwords match");
             console.log("Hashed password:", hashedPassword);
 
-            console.log({
-                firstName: this.firstName,
-                lastName: this.lastName,
-                username: this.username,
-                birthdate: this.birthdate,
-                email: this.email,
-                password: this.password
-            });
+            fetch('http://localhost:3000/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    username: this.username,
+                    birthdate: this.birthdate,
+                    email: this.email,
+                    password: this.password
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = "http://localhost:3000/login";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error)
+                });
 
-            //TODO request api (post)
-
-            window.location.href = "http://localhost:3000/login";
         }
     }
 });
