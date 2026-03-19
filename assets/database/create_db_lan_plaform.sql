@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `lan_plaform`.`Users` (
   INDEX `fk_Users_Roles_idx` (`role_id` ASC) VISIBLE,
   CONSTRAINT `fk_Users_Roles`
     FOREIGN KEY (`role_id`)
-    REFERENCES `plaformeLAN`.`Roles` (`id`)
+    REFERENCES `lan_plaform`.`Roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -79,17 +79,18 @@ CREATE TABLE IF NOT EXISTS `lan_plaform`.`Users_take_part_in_LANs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `LAN_id` INT NOT NULL,
+  `price` float(5,2) not null,
   PRIMARY KEY (`id`),
   INDEX `fk_Users_take_part_in_LANs_Users1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_Users_take_part_in_LANs_LANs1_idx` (`LAN_id` ASC) VISIBLE,
   CONSTRAINT `fk_Users_take_part_in_LANs_Users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `plaformeLAN`.`Users` (`id`)
+    REFERENCES `lan_plaform`.`Users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Users_take_part_in_LANs_LANs1`
     FOREIGN KEY (`LAN_id`)
-    REFERENCES `plaformeLAN`.`LANs` (`id`)
+    REFERENCES `lan_plaform`.`LANs` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
