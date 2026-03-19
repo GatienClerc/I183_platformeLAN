@@ -6,6 +6,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from "url";
+import usersRouter from "./routes/users.js";
 
 /***********************************************************************************************************************
  *  Express
@@ -38,6 +39,10 @@ app.get('/signup', (req, res) => {
 /***********************************************************************************************************************
  *  Routers
  **********************************************************************************************************************/
+app.use('/api/users', usersRouter);
+//app.use('/api/roles', rolesRouter);
+//app.use('/api/users_take_part_in_lans', users_take_part_in_lansRouter);
+//app.use('/api/lans', lansRouter);
 
 // start the server
 app.listen(port, () => {

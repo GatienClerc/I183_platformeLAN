@@ -1,0 +1,9 @@
+#img_home {
+    width: 100%;
+    display: block; /* enlève les espaces indésirables */
+}
+
+.home{
+    width:100%;
+}
+

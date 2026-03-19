@@ -8,12 +8,12 @@ VALUES
 ('joueur');
 
 -- USERS
-INSERT INTO Users (lastname, firstname, pseudo, birthdate, passeword, email, role_id)
+INSERT INTO Users (lastname, firstname, username, birthdate, password, email, role_id)
 VALUES
-('Clerc', 'Gatien', 'GatiX', '2000-05-14', 'Pa$$w0rd', 'gatien@test.ch', 1),
-('Martin', 'Lucas', 'Luuuuu', '2002-11-02', 'Pa$$w0rd', 'lucas@test.ch', 3),
-('Dupont', 'Anna', 'Annou', '1998-07-22', 'Pa$$w0rd', 'anna@test.ch', 3),
-('Steiner', 'Max', 'Maxi', '1995-03-11', 'Pa$$w0rd', 'max@test.ch', 2);
+('Clerc', 'Gatien', 'GatiX', '2000-05-14', '$2b$10$kHeB9L9AAaklIwNLaxsqc.MxawxxYarbH/AJ16QnFhwhr29VOgrVu', 'gatien@test.ch', 1),
+('Martin', 'Lucas', 'Luuuuu', '2002-11-02', '$2b$10$e146Oe/NTd9mRt.F4Veb1OXjEZPsoGuEcqnJM759kcQSs8tEnP8um', 'lucas@test.ch', 3),
+('Dupont', 'Anna', 'Annou', '1998-07-22', '$2b$10$e.QponbQUkk3Yahz2ePQvuq.GKprN7QfFQllTyH03FNRpGYTkEdxq', 'anna@test.ch', 3),
+('Steiner', 'Max', 'Maxi', '1995-03-11', '$2b$10$LUNZqktPGfWOaDJ3OQlX7.lMwUYvnxaPKwm1d1SbYiZwr/L67G/Y2', 'max@test.ch', 2);
 
 -- LANs
 INSERT INTO LANs (name, date, location, max_participants)
