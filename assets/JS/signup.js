@@ -25,7 +25,6 @@ const App = Vue.createApp({
             }
 
             console.log("Passwords match");
-            console.log("Hashed password:", hashedPassword);
 
             fetch('http://localhost:3000/api/users', {
                 method: 'POST',
@@ -33,12 +32,13 @@ const App = Vue.createApp({
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    firstName: this.firstName,
-                    lastName: this.lastName,
+                    firstname: this.firstName,
+                    lastname: this.lastName,
                     username: this.username,
                     birthdate: this.birthdate,
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    role_id: 3
                 })
             })
                 .then(response => response.json())
