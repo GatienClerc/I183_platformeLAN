@@ -1,167 +1,81 @@
 /***********************************************************************************************************************
- * Program name :           games.js
- * Description :            router for the games CRUD routes
- * Author :                 Thierry Perroud
- * Creation date :          25.02.2026
- * Modified by :            Gatien Clerc
- * Modification date :      11.03.2026
- * Version :                0.1.6
+ * Program name :           users.js
+ * Description :            route for users table
+ * Author :                 Cédric Jankiewicz
+ * Creation date :          19.03.2026
+ * Modified by :            -
+ * Modification date :      -
+ * Version :                0.1.0
  **********************************************************************************************************************/
-"use strict";
-
-/***********************************************************************************************************************
- *  Imports
- **********************************************************************************************************************/
-import express from "express";
+import express from 'express';
+const router = express.Router();
 import { CRUD } from "../database/database-connection.js";
+import {hashPassword} from "../assets/JS/hash.js";
 
-/***********************************************************************************************************************
- *  Routes
- **********************************************************************************************************************/
-const gamesRouter = express.Router();  // Router for http://localhost:3000/api/Games
 
-/* Create *************************************************************************************************************/
-
-gamesRouter.post("/", async (req, res) => {
-    try {
-        // Variables
-        const columns = ["publisher_id", "name", "description", "price"];
-        const {publisher_id, name, description, price} = req.body;
-        const data = [publisher_id, name, description, price];
-
-        // Error handling
-        if (publisher_id == null || name == null || price == null) {
-            return res.status(400).json({error: "Un ou plusieurs paramètres indispensables sont vides."});
-        }
-
-        if (isNaN(publisher_id) || publisher_id < 1) {
-            return res.status(400).json({error: "L'id de l'éditeur doit être un nombre entier positif."});
-        }
-
-        if (name.length > 100) {
-            return res.status(400).json({error: "Le nom du jeu ne peut pas dépasser 100 caractères."});
-        }
-
-        if (description.length > 255) {
-            return res.status(400).json({error: "La description du jeu ne peut pas dépasser 255 " +
-                    "caractères."});
-        }
-
-        if (isNaN(price) || price < 0) {
-            return res.status(400).json({error: "Le prix du jeu doit être un nombre positif ou zéro."})
-        }
-
-        //  Creating the entry
-        const newGame = await CRUD.createInEntity("games", columns, data);
-        res.status(201).json(newGame);
+router.post('/', async (req, res) => {
+    if (req.body.lastname == null || req.body.firstname == null || req.body.username == null || req.body.birthdate == null || req.body.password == null || req.body.email == null || req.body.role_id == null) {
+        res.status(400).json({error: "Missing data"});
+        return;
     }
-    catch (error) {
-        res.status(500).json({error: error.message});
+    req.body.password = await hashPassword(req.body.password, 10)
+    const data = Object.values(req.body);
+    let response = await CRUD.createInEntity("users", ['lastname', 'firstname', 'username', 'birthdate', 'password', 'email', 'role_id' ], data);
+    res.status(201).json(response)
+})
+
+
+router.get('/', async (req, res) => {
+    const column = req.query.column;
+    const filter = req.query.filter;
+    const limit = parseInt(req.query.limit);
+
+    if (!(parseInt(limit) > 0) && limit) {
+        res.status(400).json({error: "limit invalid number"});
+        return;
     }
-});
+    let genres = await CRUD.getAllFromEntity("users", column, filter, limit);
+    res.status(200).json(genres)
+})
 
-/* Read ***************************************************************************************************************/
-gamesRouter.get("/", async (req, res) => {
-    try {
-        // Variables
-        const column = req.query.column;
-        const filter = req.query.filter;
-        const limit = parseInt(req.query.limit);
 
-        // Reading the entries
-        const allGames = await CRUD.getAllFromEntity("games", column, filter, limit);
-        res.status(200).json(allGames);
+router.get('/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (!(id > 0)) {
+        res.status(400).json({error: "id should be a positive integer"});
+        return;
     }
-    catch (error) {
-        res.status(500).json({error: error.message});
+    let genres = await CRUD.getFromEntityById("users", id);
+    res.status(200).json(genres)
+})
+
+
+router.put('/:id', async (req, res) => {
+    if (req.body.lastname == null || req.body.firstname == null || req.body.username == null || req.body.birthdate == null || req.body.password == null || req.body.email == null || req.body.role_id == null) {
+        res.status(400).json({error: "Missing data"});
+        return;
     }
-});
-
-gamesRouter.get("/:id", async (req, res) => {
-    try {
-        // Handling errors with the id parameter
-        if (isNaN(req.params.id) || req.params.id < 1) {
-            return res.status(400).json({error: "L'id doit être un nombre entier positif."})
-        }
-
-        // Reading the entry
-        const game = await CRUD.getFromEntityById("games", req.params.id);
-
-        // Error handling
-        if (!game) {
-            return res.status(404).json({error: "Jeu non trouvé."});
-        }
-
-        // sending the entry to user
-        res.status(200).json(game);
+    const id = parseInt(req.params.id);
+    if (!(id > 0)) {
+        res.status(400).json({error: "id should be a positive integer"});
+        return;
     }
-    catch (error) {
-        res.status(500).json({error: error.message});
+    req.body.password = await hashPassword(req.body.password, 10)
+    const data = Object.values(req.body);
+    let response = await CRUD.updateInEntity("users", id,['lastname', 'firstname', 'username', 'birthdate', 'password', 'email', 'role_id' ], data);
+    res.status(200).json(response);
+})
+
+
+router.delete('/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (!(id > 0)) {
+        res.status(400).json({error: "id should be a positive integer"});
+        return;
     }
-});
+    let response = await CRUD.deleteFromEntity("users", id)
+    res.status(204).json(response)
+})
 
-/* Update *************************************************************************************************************/
-gamesRouter.put("/:id", async (req, res) => {
-    try {
-        // Handling errors with the id parameter
-        if (isNaN(req.params.id) || req.params.id < 1) {
-            return res.status(400).json({error: "L'id doit être un nombre entier positif."});
-        }
 
-        // Variables
-        const columns = ["publisher_id", "name", "description", "price"];
-        const {publisher_id, name, description, price} = req.body;
-        const data = [publisher_id, name, description, price];
-
-        // Error handling
-        if (publisher_id == null || name == null || price == null) {
-            return res.status(400).json({error: "Un ou plusieurs paramètres indispensables sont vides."});
-        }
-
-        if (isNaN(publisher_id) || publisher_id < 1) {
-            return res.status(400).json({error: "L'id de l'éditeur doit être un nombre entier positif."});
-        }
-
-        if (name.length > 100) {
-            return res.status(400).json({error: "Le nom du jeu ne peut pas dépasser 100 caractères."});
-        }
-
-        if (description.length > 255) {
-            return res.status(400).json({error: "La description du jeu ne peut pas dépasser 255 " +
-                    "caractères."});
-        }
-
-        if (isNaN(price) || price <= 0) {
-            return res.status(400).json({error: "Le prix du jeu doit être un nombre positif ou zéro."})
-        }
-
-        // Updating the entry
-        const updatedGame = await CRUD.updateInEntity("games", req.params.id, columns, data);
-        res.status(200).json(updatedGame);
-    }
-    catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
-
-/* Delete *************************************************************************************************************/
-gamesRouter.delete("/:id", async (req, res) => {
-    try {
-        // Handling errors with the id parameter
-        if (isNaN(req.params.id) || req.params.id < 1) {
-            return res.status(400).json({error: "L'id doit être un nombre entier positif."});
-        }
-
-        // Deleting the entry
-        await CRUD.deleteFromEntity("games", req.params.id);
-        res.status(204).json({message: "Jeu supprimé avec succès."});
-    }
-    catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
-
-/***********************************************************************************************************************
- *  Exports
- **********************************************************************************************************************/
-export default gamesRouter;
+export default router;
