@@ -11,8 +11,8 @@ import mysql2 from "mysql2/promise";
 // MySQL connection instance to the database
 const connection = await mysql2.createConnection({
     host:       "localhost",
-    user:       "", //DO NOT PUSH KEEP EMPTY
-    password:   "", //DO NOT PUSH KEEP EMPTY
+    user:       "API", //DO NOT PUSH KEEP EMPTY
+    password:   "1234", //DO NOT PUSH KEEP EMPTY
     port:       3306,
     database:   "lan_plaform"
 });

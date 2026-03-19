@@ -24,10 +24,6 @@ const App = Vue.createApp({
                 return;
             }
 
-            // Use bcryptjs global object
-            const saltRounds = 10;
-            const hashedPassword = await dcodeIO.bcrypt.hash(this.password, saltRounds);
-
             console.log("Passwords match");
             console.log("Hashed password:", hashedPassword);
 
@@ -37,8 +33,10 @@ const App = Vue.createApp({
                 username: this.username,
                 birthdate: this.birthdate,
                 email: this.email,
-                password: hashedPassword
+                password: this.password
             });
+
+            //TODO request api (post)
 
             window.location.href = "http://localhost:3000/login";
         }
