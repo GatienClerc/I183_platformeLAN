@@ -36,7 +36,3 @@ export async function verifyPassword(password, hashedPassword) {
         throw err;
     }
 }
-
-for (let i = 0; i < 4; i++) {
-    console.log(await hashPassword("Pa$$w0rd", 10))
-}
