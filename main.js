@@ -1,6 +1,6 @@
 "use strict";
 const App = Vue.createApp({
-    data() {
+    data(){
         return {
         }
     },
